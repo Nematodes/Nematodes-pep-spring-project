@@ -21,4 +21,15 @@ public interface MessageRepository extends JpaRepository<Message, Integer>{
      * @return the Message with a matching Message_id (if it exists)
      */
     public Message findMessageByMessage_id(@Param("messageIdVar") int message_id);
+
+    @Modifying
+    @Query("UPDATE Message SET message_text = :messageTextVar WHERE message_id = :messageIdVar")
+    /**
+     * Updates a message the Message with a matching message_id (if it exists)
+     * with new text supplied by newMessage_text
+     * 
+     * @param message_id the message_id of the Message to update
+     * @param newMessage_text the text to update the message with
+     */
+    public void updateMessageByMessage_id(@Param("messageIdVar") int message_id, @Param("messageTextVar") String newMessage_text);
 }

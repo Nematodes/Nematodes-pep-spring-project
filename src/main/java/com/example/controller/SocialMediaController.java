@@ -124,4 +124,23 @@ public class SocialMediaController {
     public Integer deleteMessageById(@PathVariable("message_id") int message_id) {
         return messageService.deleteMessageById(message_id);
     }
+
+    @PatchMapping(value = "/messages/{message_id}")
+    /**
+     * Attempts to update a message with a matching message_id in the application's message database
+     * with a message supplied in the request body
+     * 
+     * If successful, sets the HTTP status 200 and returns the number of rows updated (1)
+     * 
+     * Fails and sets the HTTP status to 400 under the following conditions:
+     * A message with a matching message_id is not found
+     * The supplied updated text is not between 1 and 255 (inclusive) characters long
+     * 
+     * @param message_id the message_id of the message to update
+     * @param message the message containing new text to update with
+     * @return 1 if the message is found and updated, or null if this fails for any reason
+     */
+    public Integer updateMessageById(@PathVariable("message_id") int message_id, @RequestBody Message message) {
+        return messageService.updateMessageById(message_id, message.getMessage_text());
+    }
 }

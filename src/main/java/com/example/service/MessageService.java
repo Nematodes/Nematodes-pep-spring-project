@@ -114,4 +114,38 @@ public class MessageService {
     public void setAccountRepository(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
+
+    /**
+     * Attempts to update the text of a message with a matching message_id in the application's
+     * message database
+     * 
+     * If successful, returns the number of rows updated (1)
+     * 
+     * Fails under the following conditions:
+     * A message with a matching message_id is not found
+     * The supplied updated text is not between 1 and 255 (inclusive) characters long
+     * 
+     * @param message_id the message_id of the message to update
+     * @param newMessage_text the text to update the message with
+     * @return 1 if the message is found and updated, or null if this fails for any reason
+     */
+    public Integer updateMessageById(int message_id, String newMessage_text) {
+        int newMessage_textLength = newMessage_text.length();
+
+        if (newMessage_textLength == 0) {
+            throw new InvalidMessageLengthException("Messages cannot be empty!");
+        }
+
+        if (newMessage_textLength > 255) {
+            throw new InvalidMessageLengthException("Messages cannot contain more than 255 characters!");
+        }
+
+        if (messageRepository.findMessageByMessage_id(message_id) == null) {
+            throw new NonexistentMessageException();
+        }
+
+        messageRepository.updateMessageByMessage_id(message_id, newMessage_text);
+
+        return 1;
+    }
 }
