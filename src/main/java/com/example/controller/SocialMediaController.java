@@ -15,24 +15,68 @@ public class SocialMediaController {
     private AccountService accountService;
     private MessageService messageService;
 
+    /**
+     * Creates a SocialMediaController that uses a specific AccountService and MessageService
+     * 
+     * @param accountService the AccountService to use
+     * @param messageService the MessageService to use
+     */
     public SocialMediaController(AccountService accountService, MessageService messageService) {
         this.accountService = accountService;
         this.messageService = messageService;
     }
 
     @PostMapping(value = "/register")
+    /**
+     * Attempts to add an account to the application's account database
+     * 
+     * If successful, sets the HTTP status to 200
+     * 
+     * Fails and sets the HTTP status to 409 if an account with an identical username already
+     * exists in the account database
+     * 
+     * Fails and sets the HTTP status to 400 under the following conditions:
+     * The account's username has a length of 0 characters
+     * The account's password has a length of less than 4 characters
+     * 
+     * @param inputAccount the Account to store, without its account_id set
+     * @return the same Account with its account_id set to an automatically-generated value
+     */
     public Account addAccount(@RequestBody Account inputAccount) {
         Account generatedAccount = accountService.addAccount(inputAccount);
         return generatedAccount;
     }
 
     @PostMapping(value = "/login")
+    /**
+     * Returns an Account with matching credentials (username and password) if it exists in the
+     * application's account database
+     * 
+     * If successful, sets the HTTP status to 200
+     * 
+     * Fails and sets the HTTP status to 401 if an account with matching credentials is not found
+     * 
+     * @param inputAccount the Account to check for the matching credentials of
+     * @return the Account with matching credentials
+     */
     public Account loginToAccount(@RequestBody Account inputAccount) {
         Account retrievedAccount = accountService.loginToAccount(inputAccount);
         return retrievedAccount;
     }
 
     @PostMapping(value = "/messages")
+    /**
+     * Attempts to add a message to the application's message database
+     * 
+     * If successful, sets the HTTP status to 200
+     * 
+     * Fails and sets the HTTP status to 400 under the following conditions:
+     * The message is not between 1 and 255 characters (inclusive) long
+     * The account ID associated with the message does not correspond to an existing account
+     * 
+     * @param inputMessage the Message to store, without its message_id set
+     * @return the same Message with its message_id set to an automatically-generated value
+     */
     public Message addMessage(@RequestBody Message inputMessage) {
         Message generatedMessage = messageService.addMessage(inputMessage);
         return generatedMessage;
