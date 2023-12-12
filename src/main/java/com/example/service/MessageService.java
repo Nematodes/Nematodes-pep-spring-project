@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.entity.*;
 import com.example.exception.*;
 import com.example.repository.*;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,24 +22,6 @@ public class MessageService {
      */
     public MessageService(MessageRepository messageRepository, AccountRepository accountRepository) {
         this.messageRepository = messageRepository;
-        this.accountRepository = accountRepository;
-    }
-
-    /**
-     * Sets the MessageRepository for this MessageService
-     * 
-     * @param accountRepository the MessageRepository to set
-     */
-    public void setMessageRepository(MessageRepository messageRepository) {
-        this.messageRepository = messageRepository;
-    }
-
-    /**
-     * Sets the AccountRepository for this MessageService
-     * 
-     * @param accountRepository the AccountRepository to set
-     */
-    public void setAccountRepository(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 
@@ -70,5 +53,34 @@ public class MessageService {
         }
 
         return messageRepository.save(message);
+    }
+
+    /**
+     * Gets all messages from the application's message database
+     * 
+     * If there are no messages in the database, then an empty list is returned.
+     * 
+     * @return a list containing every Message in the message database
+     */
+    public List<Message> getAllMessages() {
+        return messageRepository.findAll();
+    }
+
+    /**
+     * Sets the MessageRepository for this MessageService
+     * 
+     * @param accountRepository the MessageRepository to set
+     */
+    public void setMessageRepository(MessageRepository messageRepository) {
+        this.messageRepository = messageRepository;
+    }
+
+    /**
+     * Sets the AccountRepository for this MessageService
+     * 
+     * @param accountRepository the AccountRepository to set
+     */
+    public void setAccountRepository(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
     }
 }

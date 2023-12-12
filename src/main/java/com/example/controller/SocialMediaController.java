@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.entity.*;
 import com.example.service.*;
+import java.util.List;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -43,8 +44,7 @@ public class SocialMediaController {
      * @return the same Account with its account_id set to an automatically-generated value
      */
     public Account addAccount(@RequestBody Account inputAccount) {
-        Account generatedAccount = accountService.addAccount(inputAccount);
-        return generatedAccount;
+        return accountService.addAccount(inputAccount);
     }
 
     @PostMapping(value = "/login")
@@ -60,8 +60,7 @@ public class SocialMediaController {
      * @return the Account with matching credentials
      */
     public Account loginToAccount(@RequestBody Account inputAccount) {
-        Account retrievedAccount = accountService.loginToAccount(inputAccount);
-        return retrievedAccount;
+        return accountService.loginToAccount(inputAccount);
     }
 
     @PostMapping(value = "/messages")
@@ -78,7 +77,20 @@ public class SocialMediaController {
      * @return the same Message with its message_id set to an automatically-generated value
      */
     public Message addMessage(@RequestBody Message inputMessage) {
-        Message generatedMessage = messageService.addMessage(inputMessage);
-        return generatedMessage;
+        return messageService.addMessage(inputMessage);
+    }
+
+    @GetMapping(value = "/messages")
+    /**
+     * Gets all messages from the application's message database
+     * 
+     * If there are no messages in the database, then an empty list is returned.
+     * 
+     * Always sets the HTTP status to 200
+     * 
+     * @return a list containing every Message in the message database
+     */
+    public List<Message> getAllMessages() {
+        return messageService.getAllMessages();
     }
 }
