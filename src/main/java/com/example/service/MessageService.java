@@ -86,6 +86,22 @@ public class MessageService {
     }
 
     /**
+     * Gets all messages written by a user with a matching account_id from the
+     * application's message database
+     * 
+     * If the user has written no messages, then an empty list is returned.
+     * 
+     * If a user with a matching account_id does not exist, then undefined
+     * behavior occurs.
+     * 
+     * @param account_id The account_id of the account to get all messages from
+     * @return a list containing every Message written by the user with a matching account_id
+     */
+    public List<Message> getAllMessagesByUser(int account_id) {
+        return messageRepository.findAllMessagesByAccount_id(account_id);
+    }
+
+    /**
      * Gets a message with a matching message_id from the application's message database
      * 
      * If there is no message with a matching message_id, then an empty response is returned.

@@ -1,10 +1,25 @@
 package com.example.repository;
 
 import com.example.entity.Message;
+import java.util.List;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 
 public interface MessageRepository extends JpaRepository<Message, Integer>{
+    /*
+     * A @Query is necessary because Spring cannot automatically parse queries that
+     * use attributes with names containing underscores (Message_id in this case).
+     */
+    @Query("FROM Message WHERE posted_by = :accountIdVar")
+    /**
+     * Finds and returns all messages written by the account with a matching account_id
+     * (if it exists)
+     * 
+     * @param account_id the account_id to obtain all messages from
+     * @return a list of Message objects written by the account with a matching account_id
+     */
+    public List<Message> findAllMessagesByAccount_id(@Param("accountIdVar") int account_id);
+
     /*
      * A @Query is necessary because Spring cannot automatically parse queries that
      * use attributes with names containing underscores (Message_id in this case).

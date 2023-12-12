@@ -143,4 +143,23 @@ public class SocialMediaController {
     public Integer updateMessageById(@PathVariable("message_id") int message_id, @RequestBody Message message) {
         return messageService.updateMessageById(message_id, message.getMessage_text());
     }
+
+    @GetMapping(value = "/accounts/{account_id}/messages")
+    /**
+     * Gets all messages written by a user with a matching account_id from the
+     * application's message database
+     * 
+     * If the user has written no messages, then an empty list is returned.
+     * 
+     * If a user with a matching account_id does not exist, then undefined
+     * behavior occurs.
+     * 
+     * Always sets the HTTP status to 200
+     * 
+     * @param account_id The account_id of the account to get all messages from
+     * @return a list containing every Message written by the user with a matching account_id
+     */
+    public List<Message> getAllMessagesByUser(@PathVariable("account_id") int account_id) {
+        return messageService.getAllMessagesByUser(account_id);
+    }
 }
