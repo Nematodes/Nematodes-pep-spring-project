@@ -56,6 +56,25 @@ public class MessageService {
     }
 
     /**
+     * Attempts to delete a message with a matching message_id from the application's message database
+     * 
+     * If a message is found and successfully deleted, then the number of rows updated (1) is returned.
+     * Otherwise, null is returned.
+     * 
+     * @param message_id the message_id of the message to delete
+     * @return 1 if the message is found and deleted, or null if no message is found and deleted
+     */
+    public Integer deleteMessageById(int message_id) {
+        if (messageRepository.findMessageByMessage_id(message_id) != null) {
+            messageRepository.deleteById(message_id);
+            return 1;
+        }
+        else {
+            return null;
+        }
+    }
+
+    /**
      * Gets all messages from the application's message database
      * 
      * If there are no messages in the database, then an empty list is returned.

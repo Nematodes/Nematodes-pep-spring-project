@@ -108,4 +108,20 @@ public class SocialMediaController {
     public Message getMessageById(@PathVariable("message_id") int message_id) {
         return messageService.getMessageById(message_id);
     }
+
+    @DeleteMapping(value = "/messages/{message_id}")
+    /**
+     * Attempts to delete a message with a matching message_id from the application's message database
+     * 
+     * If a message is found and successfully deleted, then the number of rows updated (1) is returned.
+     * Otherwise, an empty response is returned.
+     * 
+     * Always sets the HTTP status to 200
+     * 
+     * @param message_id the message_id of the message to delete
+     * @return 1 if the message is found and deleted, or null if no message is found and deleted
+     */
+    public Integer deleteMessageById(@PathVariable("message_id") int message_id) {
+        return messageService.deleteMessageById(message_id);
+    }
 }
