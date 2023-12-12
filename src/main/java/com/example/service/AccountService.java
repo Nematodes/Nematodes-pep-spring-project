@@ -20,18 +20,15 @@ public class AccountService {
     }
 
     public Account addAccount(Account account) {
-        if (account.getUsername().length() == 0)
-        {
+        if (account.getUsername().length() == 0) {
             throw new InvalidAccountCreationCredentialsException("Account usernames cannot be blank!");
         }
 
-        if (account.getPassword().length() < 4)
-        {
+        if (account.getPassword().length() < 4) {
             throw new InvalidAccountCreationCredentialsException("Passwords must be at least 4 characters in length!");
         }
 
-        if (accountRepository.findAccountByUsername(account.getUsername()) != null)
-        {
+        if (accountRepository.findAccountByUsername(account.getUsername()) != null) {
             throw new DuplicateAccountException();
         }
 
@@ -41,8 +38,7 @@ public class AccountService {
     public Account loginToAccount(Account account) {
         Account retrievedAccount = accountRepository.findAccountByUsernameAndPassword(account.getUsername(), account.getPassword());
 
-        if (retrievedAccount == null)
-        {
+        if (retrievedAccount == null) {
             // Do not bother revealing whether or not it was the username or password that was incorrect
             throw new InvalidAccountLoginCredentialsException();
         }

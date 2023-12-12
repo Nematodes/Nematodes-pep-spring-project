@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.entity.Account;
+import com.example.entity.*;
 import com.example.service.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,5 +30,11 @@ public class SocialMediaController {
     public Account loginToAccount(@RequestBody Account inputAccount) {
         Account retrievedAccount = accountService.loginToAccount(inputAccount);
         return retrievedAccount;
+    }
+
+    @PostMapping(value = "/messages")
+    public Message addMessage(@RequestBody Message inputMessage) {
+        Message generatedMessage = messageService.addMessage(inputMessage);
+        return generatedMessage;
     }
 }
