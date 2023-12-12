@@ -13,8 +13,8 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     public Account findAccountByUsername(String username);
 
     /**
-     * Finds and returns the Account with a matching username and password (if it exists)'
-     * '
+     * Finds and returns the Account with a matching username and password (if it exists)
+     * 
      * @param username the username of the Account to find
      * @param password the password of the Account to find
      * @return the Account with a matching username and password (if it exists)

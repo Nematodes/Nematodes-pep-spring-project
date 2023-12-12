@@ -93,4 +93,19 @@ public class SocialMediaController {
     public List<Message> getAllMessages() {
         return messageService.getAllMessages();
     }
+
+    @GetMapping(value = "/messages/{message_id}")
+    /**
+     * Gets a message with a matching message_id from the application's message database
+     * 
+     * If there is no message with a matching message_id, then an empty response is returned.
+     * 
+     * Always sets the HTTP status to 200
+     * 
+     * @param message_id the message_id to search for
+     * @return the Message with a matching message_id, or null if a matching message is not found
+     */
+    public Message getMessageById(@PathVariable("message_id") int message_id) {
+        return messageService.getMessageById(message_id);
+    }
 }

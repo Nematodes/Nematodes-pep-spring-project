@@ -67,6 +67,18 @@ public class MessageService {
     }
 
     /**
+     * Gets a message with a matching message_id from the application's message database
+     * 
+     * If there is no message with a matching message_id, then an empty response is returned.
+     * 
+     * @param message_id the message_id to search for
+     * @return the Message with a matching message_id, or null if a matching message is not found
+     */
+    public Message getMessageById(int message_id) {
+        return messageRepository.findMessageByMessage_id(message_id);
+    }
+
+    /**
      * Sets the MessageRepository for this MessageService
      * 
      * @param accountRepository the MessageRepository to set
