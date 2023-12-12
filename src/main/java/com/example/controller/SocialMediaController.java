@@ -25,4 +25,10 @@ public class SocialMediaController {
         Account generatedAccount = accountService.addAccount(inputAccount);
         return generatedAccount;
     }
+
+    @PostMapping(value = "/login")
+    public Account loginToAccount(@RequestBody Account inputAccount) {
+        Account retrievedAccount = accountService.loginToAccount(inputAccount);
+        return retrievedAccount;
+    }
 }

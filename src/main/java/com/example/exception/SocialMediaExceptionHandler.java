@@ -18,4 +18,10 @@ public class SocialMediaExceptionHandler {
     public void handleDuplicateAccountException() {
         // Nothing to do here - the logic is handled by annotations
     }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(InvalidAccountLoginCredentialsException.class)
+    public void handleInvalidAccountLoginCredentialsException() {
+        // Nothing to do here - the logic is handled by annotations
+    }
 }

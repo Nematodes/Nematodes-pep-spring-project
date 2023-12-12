@@ -37,4 +37,16 @@ public class AccountService {
 
         return accountRepository.save(account);
     }
+
+    public Account loginToAccount(Account account) {
+        Account retrievedAccount = accountRepository.findAccountByUsernameAndPassword(account.getUsername(), account.getPassword());
+
+        if (retrievedAccount == null)
+        {
+            // Do not bother revealing whether or not it was the username or password that was incorrect
+            throw new InvalidAccountLoginCredentialsException();
+        }
+
+        return retrievedAccount;
+    }
 }
